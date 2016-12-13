@@ -1,5 +1,3 @@
-'use strict';
-
-var BLACK = '#000000',
-    WHITE = '#ffffff',
-    red = "#990000";
+const BLACK = '#000000',
+      WHITE = '#ffffff',
+      red = "#990000";
