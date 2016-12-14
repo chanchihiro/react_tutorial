@@ -8,12 +8,35 @@ var browser = require("browser-sync"); //ライブリロード
 var plumber = require("gulp-plumber"); //途中で実行をやめてしまうのをやめる
 var jade = require("gulp-jade"); //jadeのコンパイル
 var frontNote = require('gulp-frontnote'); //スタイルガイドの作成
+var babelify = require("babelify");  //babel
+var browserify = require("browserify"); //babel
+var buffer = require("vinyl-buffer"); //uglifyするためのもの //今は使わない
+var node = require("node-dev");
+var source = require("vinyl-source-stream"); //browserifyとgulpを使用する場合は、vinyl-source-streamで橋渡ししないといけない
+
+
+
+function errorHandler(err){
+	console.log('Error: ' + err.message);
+}
 
 
 gulp.task('babel', function() {
 	gulp.src('./src/js/*.es6')
 		.pipe(babel())
 		.pipe(plumber())
+		.pipe(gulp.dest('public/js'));
+	browser.reload();
+});
+
+
+gulp.task("build", function(){
+	browserify({entries: ["src/js/index.js"]})
+		.transform(babelify)
+		.bundle()
+		.on("error",errorHandler)
+		.pipe(source('bundle.js'))
+		.pipe(buffer())
 		.pipe(gulp.dest('public/js'));
 	browser.reload();
 });
@@ -62,6 +85,7 @@ gulp.task("default",["server","babel"],function(){
 	gulp.watch("src/styles/*.scss",["sass"]);
 	gulp.watch("src/views/*.jade",["jade"]);
 	gulp.watch("src/js/*.es6",["babel"]);
+	gulp.watch('src/js/*.js', ['build']);
 	gulp.watch("public/**",function(){
 		browser.reload();
 	});
