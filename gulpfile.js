@@ -32,7 +32,7 @@ gulp.task('babel', function() {
 
 gulp.task("build", function(){
 	browserify({entries: ["src/js/index.js"]})
-		.transform(babelify)
+		.transform(babelify,{presets: ['es2015',"react"]})
 		.bundle()
 		.on("error",errorHandler)
 		.pipe(source('bundle.js'))
