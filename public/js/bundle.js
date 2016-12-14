@@ -20483,7 +20483,13 @@ var CommentBox = function (_React$Component) {
 			return _react2.default.createElement(
 				"div",
 				{ className: "commentBox" },
-				"Hello, world!"
+				_react2.default.createElement(
+					"h2",
+					null,
+					"Comments"
+				),
+				_react2.default.createElement(CommentList, null),
+				_react2.default.createElement(CommentForm, null)
 			);
 		}
 	}]);
