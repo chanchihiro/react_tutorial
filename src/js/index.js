@@ -1,23 +1,15 @@
 import React from "react"
 import ReactDOM from "react-dom"
 
-class CommentBox extends React.Component {
-	constructor(props){
-		super(props);
-	}
+import CommentBox from "./components/CommentBox"
 
-	render() {
-		return(
-			<div className="commentBox">
-				<h2>Comments</h2>
-				<CommentList />
-				<CommentForm />
-      		</div>
-		);
-	}
-}
+
+let data = [
+
+];
+
 
 ReactDOM.render(
-	<CommentBox />,
- 	document.getElementById('container')
+	<CommentBox data={data} />,
+	document.getElementById("container")
 );
