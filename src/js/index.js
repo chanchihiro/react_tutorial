@@ -4,12 +4,7 @@ import ReactDOM from "react-dom"
 import CommentBox from "./components/CommentBox"
 
 
-let data = [
-
-];
-
-
 ReactDOM.render(
-	<CommentBox data={data} />,
+	<CommentBox url="../../comments.json" />,
 	document.getElementById("container")
 );

@@ -21989,8 +21989,6 @@ var _CommentBox2 = _interopRequireDefault(_CommentBox);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var data = [];
-
-_reactDom2.default.render(_react2.default.createElement(_CommentBox2.default, { data: data }), document.getElementById("container"));
+_reactDom2.default.render(_react2.default.createElement(_CommentBox2.default, { url: "../../comments.json" }), document.getElementById("container"));
 
 },{"./components/CommentBox":180,"react":178,"react-dom":27}]},{},[183]);
