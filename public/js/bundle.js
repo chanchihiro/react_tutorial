@@ -32079,7 +32079,6 @@ var CommentBox = function (_React$Component) {
 				url: this.props.url,
 				dataType: "json",
 				cache: false,
-				type: "POST",
 				success: function success(data) {
 					_this2.setState({ data: data });
 				},
