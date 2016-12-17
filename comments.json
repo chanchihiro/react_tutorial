@@ -1,10 +1,14 @@
 [
-	{
-		"author": "ちゃんちー",
-		"text": "This is one comment"
-	},
-	{
-		"author": "おかべ",
-		"text": "おかべだよ"
-	}
+    {
+        "author": "ちゃんちー",
+        "text": "This is one comment"
+    },
+    {
+        "author": "おかべ",
+        "text": "おかべだよ"
+    },
+    {
+        "author": "おりはら",
+        "text": "りはらだよ"
+    }
 ]
