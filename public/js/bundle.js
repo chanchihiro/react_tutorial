@@ -32118,12 +32118,19 @@ var CommentBox = function (_React$Component) {
 				"div",
 				{ className: "commentBox" },
 				_react2.default.createElement(
-					"h2",
+					"dt",
 					null,
-					"Comments"
-				),
-				_react2.default.createElement(_CommentList2.default, { data: this.state.data }),
-				_react2.default.createElement(_CommentForm2.default, { onCommentSubmit: this.handleCommentSubmit.bind(this) })
+					_react2.default.createElement(
+						"dd",
+						null,
+						_react2.default.createElement(_CommentList2.default, { data: this.state.data })
+					),
+					_react2.default.createElement(
+						"dd",
+						null,
+						_react2.default.createElement(_CommentForm2.default, { onCommentSubmit: this.handleCommentSubmit.bind(this) })
+					)
+				)
 			);
 		}
 	}]);

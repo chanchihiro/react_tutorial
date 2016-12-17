@@ -51,11 +51,6 @@ gulp.task("server",function(){
 });
 
 
-gulp.task("server2",function(){
-	node(['./server.js']);
-});
-
-
 gulp.src('public/**/guide.css')
 	.pipe(frontNote({
 	// options
