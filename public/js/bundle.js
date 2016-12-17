@@ -32071,8 +32071,8 @@ var CommentBox = function (_React$Component) {
 	}
 
 	_createClass(CommentBox, [{
-		key: "componentDidMount",
-		value: function componentDidMount() {
+		key: "loadCommentsFromServer",
+		value: function loadCommentsFromServer() {
 			var _this2 = this;
 
 			_jquery2.default.ajax({
@@ -32088,6 +32088,30 @@ var CommentBox = function (_React$Component) {
 			});
 		}
 	}, {
+		key: "handleCommentSubmit",
+		value: function handleCommentSubmit(comment) {
+			var _this3 = this;
+
+			_jquery2.default.ajax({
+				url: this.props.url,
+				dataType: "json",
+				type: "POST",
+				data: comment,
+				success: function success(data) {
+					_this3.setState({ data: data });
+				},
+				error: function error(xhr, status, err) {
+					console.error(_this3.props.url, status, err.toString());
+				}
+			});
+		}
+	}, {
+		key: "componentDidMount",
+		value: function componentDidMount() {
+			this.loadCommentsFromServer();
+			setInterval(this.loadCommentsFromServer.bind(this), this.props.pollInterval);
+		}
+	}, {
 		key: "render",
 		value: function render() {
 			return _react2.default.createElement(
@@ -32099,7 +32123,7 @@ var CommentBox = function (_React$Component) {
 					"Comments"
 				),
 				_react2.default.createElement(_CommentList2.default, { data: this.state.data }),
-				_react2.default.createElement(_CommentForm2.default, null)
+				_react2.default.createElement(_CommentForm2.default, { onCommentSubmit: this.handleCommentSubmit.bind(this) })
 			);
 		}
 	}]);
@@ -32144,12 +32168,25 @@ var CommentForm = function (_React$Component) {
 	}
 
 	_createClass(CommentForm, [{
+		key: "handleSubmit",
+		value: function handleSubmit(e) {
+			e.preventDefault();
+			var author = this.refs.author.value.trim();
+			var text = this.refs.text.value.trim();
+			if (!text || !author) return;
+			this.props.onCommentSubmit({ author: author, text: text });
+			this.refs.author.value = "";
+			this.refs.text.value = "";
+		}
+	}, {
 		key: "render",
 		value: function render() {
 			return _react2.default.createElement(
-				"div",
-				{ className: "commentForm" },
-				"Hello, world! I am a CommentForm."
+				"form",
+				{ className: "commentForm", onSubmit: this.handleSubmit.bind(this) },
+				_react2.default.createElement("input", { type: "text", placeholder: "\u540D\u524D", ref: "author" }),
+				_react2.default.createElement("input", { type: "text", placeholder: "\u306A\u3093\u304B\u3057\u3089\u66F8\u3044\u3066", ref: "text" }),
+				_react2.default.createElement("input", { type: "submit", value: "\u9001\u4FE1\u3059\u308B" })
 			);
 		}
 	}]);
@@ -32237,6 +32274,6 @@ var _CommentBox2 = _interopRequireDefault(_CommentBox);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-_reactDom2.default.render(_react2.default.createElement(_CommentBox2.default, { url: "../comments.json" }), document.getElementById("container"));
+_reactDom2.default.render(_react2.default.createElement(_CommentBox2.default, { url: "comments.json", pollInterval: 2000 }), document.getElementById("container"));
 
 },{"./components/CommentBox":181,"react":179,"react-dom":28}]},{},[184]);

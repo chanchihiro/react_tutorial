@@ -12,7 +12,7 @@ export default class CommentBox extends React.Component {
 		};
 	}
 
-	componentDidMount() {
+	loadCommentsFromServer() {
 		$.ajax({
 			url : this.props.url,
 			dataType : "json",
@@ -24,12 +24,30 @@ export default class CommentBox extends React.Component {
 		});
 	}
 
+	handleCommentSubmit(comment) {
+		$.ajax({
+			url : this.props.url,
+			dataType : "json",
+			type : "POST",
+			data : comment,
+			success : (data) => {this.setState({data : data}); },
+			error : (xhr, status, err) => {
+				console.error(this.props.url, status, err.toString());
+			}
+		});
+	}
+
+	componentDidMount() {
+		this.loadCommentsFromServer();
+		setInterval(this.loadCommentsFromServer.bind(this), this.props.pollInterval);
+	}
+
 	render() {
 		return(
 			<div className="commentBox">
 				<h2>Comments</h2>
 				<CommentList data={this.state.data} />
-				<CommentForm />
+				<CommentForm onCommentSubmit={this.handleCommentSubmit.bind(this)} />
       		</div>
 		);
 	}
