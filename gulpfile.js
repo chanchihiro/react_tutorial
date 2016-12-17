@@ -86,6 +86,7 @@ gulp.task("default",["server","babel"],function(){
 	gulp.watch("src/views/*.jade",["jade"]);
 	gulp.watch("src/js/*.es6",["babel"]);
 	gulp.watch('src/js/*.js', ['build']);
+	gulp.watch("src/js/components/*.js", ["build"]);
 	gulp.watch("public/**",function(){
 	browser.reload();
 	});
